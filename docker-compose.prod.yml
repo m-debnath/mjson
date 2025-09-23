@@ -1,0 +1,29 @@
+# Production docker-compose with external Traefik
+services:
+  json-formatter:
+    build: .
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.json-formatter.rule=Host(`your-domain.com`)"
+      - "traefik.http.routers.json-formatter.entrypoints=web"
+      - "traefik.http.routers.json-formatter-secure.rule=Host(`your-domain.com`)"
+      - "traefik.http.routers.json-formatter-secure.entrypoints=websecure"
+      - "traefik.http.routers.json-formatter-secure.tls=true"
+      - "traefik.http.routers.json-formatter-secure.tls.certresolver=le"
+      - "traefik.http.services.json-formatter.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.json-formatter-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.json-formatter-redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.json-formatter.middlewares=json-formatter-redirect"
+    networks:
+      - traefik
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  traefik:
+    external: true

@@ -1,0 +1,54 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    commit-message:
+      prefix: "security"
+      include: "scope"
+    reviewers:
+      - "mukul"
+    assignees:
+      - "mukul"
+    open-pull-requests-limit: 5
+    # Security updates only for production dependencies
+    groups:
+      security-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "security"
+
+  # Enable version updates for Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    reviewers:
+      - "mukul"
+    assignees:
+      - "mukul"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    reviewers:
+      - "mukul"
+    assignees:
+      - "mukul"

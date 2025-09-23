@@ -1,0 +1,58 @@
+services:
+  json-formatter:
+    build: .
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.json-formatter.rule=Host(`json-formatter.localhost`)"
+      - "traefik.http.routers.json-formatter.entrypoints=web"
+      - "traefik.http.routers.json-formatter-secure.rule=Host(`json-formatter.localhost`)"
+      - "traefik.http.routers.json-formatter-secure.entrypoints=websecure"
+      - "traefik.http.routers.json-formatter-secure.tls=true"
+      - "traefik.http.routers.json-formatter-secure.tls.certresolver=le"
+      - "traefik.http.services.json-formatter.loadbalancer.server.port=80"
+      # Optional: redirect HTTP to HTTPS
+      - "traefik.http.middlewares.json-formatter-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.json-formatter-redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.json-formatter.middlewares=json-formatter-redirect"
+    networks:
+      - traefik
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Traefik reverse proxy (optional - remove if you have Traefik running elsewhere)
+  traefik:
+    image: traefik:v3.0
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      - "--certificatesresolvers.le.acme.email=your-email@example.com"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      # Uncomment for staging/testing
+      # - "--certificatesresolvers.le.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Traefik dashboard
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "letsencrypt:/letsencrypt"
+    networks:
+      - traefik
+    restart: unless-stopped
+
+networks:
+  traefik:
+    external: false
+
+volumes:
+  letsencrypt:

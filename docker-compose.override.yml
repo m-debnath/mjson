@@ -1,0 +1,19 @@
+# Docker-compose override for development
+services:
+  json-formatter:
+    labels:
+      - "traefik.http.routers.json-formatter.rule=Host(`json-formatter.localhost`)"
+      - "traefik.http.routers.json-formatter-secure.rule=Host(`json-formatter.localhost`)"
+    environment:
+      - NODE_ENV=development
+
+  traefik:
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # Development - no SSL certificates
+      - "--log.level=DEBUG"
