@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import styled from 'styled-components';
-import { UI_TEXT, DEFAULT_JSON, STORAGE_KEYS, CONFIG, ASSETS } from '../assets';
 import {
   Footer,
   Toast,
   MobileWarningToast,
   ThemeButton,
+  LanguageButton,
   Button,
   SpacingLabel,
   SpacingDropdown,
@@ -23,6 +23,10 @@ import {
   ClearIcon,
   SpacingIcon,
   WarningIcon,
+  USFlagIcon,
+  DutchFlagIcon,
+  LanguageProvider,
+  useLanguage,
 } from '.';
 import { AppThemeProvider, useTheme } from './theme';
 
@@ -106,7 +110,7 @@ const EditorHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background-color: ${props => props.theme.surfaceSecondary};
+  background-color: ${props => props.theme.editorHeader};
   border-bottom: 1px solid ${props => props.theme.border};
   font-weight: 600;
   color: ${props => props.theme.text};
@@ -151,6 +155,9 @@ interface ValidationError {
 // Icon components moved to Icons.tsx
 
 const JsonFormatterContent: React.FC = () => {
+  const { language, setLanguage, constants } = useLanguage();
+  const { UI_TEXT, DEFAULT_JSON, STORAGE_KEYS, CONFIG, ASSETS } = constants;
+
   const [inputJson, setInputJson] = useState(DEFAULT_JSON);
   const [outputJson, setOutputJson] = useState('');
   const [validationError, setValidationError] = useState<ValidationError | null>(null);
@@ -185,33 +192,36 @@ const JsonFormatterContent: React.FC = () => {
     return () => {
       window.removeEventListener('resize', checkMobileDevice);
     };
-  }, []);
+  }, [CONFIG.MOBILE_BREAKPOINT, CONFIG.MOBILE_WARNING_DURATION, STORAGE_KEYS.MOBILE_WARNING]);
 
-  const validateJson = useCallback((jsonString: string): ValidationError | null => {
-    if (!jsonString.trim()) return null;
+  const validateJson = useCallback(
+    (jsonString: string): ValidationError | null => {
+      if (!jsonString.trim()) return null;
 
-    try {
-      JSON.parse(jsonString);
-      return null;
-    } catch (error) {
-      if (error instanceof SyntaxError) {
-        // Try to extract line and column information from error message
-        const match = error.message.match(/at position (\d+)/);
-        if (match) {
-          const position = parseInt(match[1]);
-          const lines = jsonString.substring(0, position).split('\n');
-          return {
-            line: lines.length,
-            column: lines[lines.length - 1].length + 1,
-            message: error.message,
-          };
+      try {
+        JSON.parse(jsonString);
+        return null;
+      } catch (error) {
+        if (error instanceof SyntaxError) {
+          // Try to extract line and column information from error message
+          const match = error.message.match(/at position (\d+)/);
+          if (match) {
+            const position = parseInt(match[1]);
+            const lines = jsonString.substring(0, position).split('\n');
+            return {
+              line: lines.length,
+              column: lines[lines.length - 1].length + 1,
+              message: error.message,
+            };
+          }
         }
+        return {
+          message: error instanceof Error ? error.message : UI_TEXT.ERROR_INVALID_JSON,
+        };
       }
-      return {
-        message: error instanceof Error ? error.message : UI_TEXT.ERROR_INVALID_JSON,
-      };
-    }
-  }, []);
+    },
+    [UI_TEXT.ERROR_INVALID_JSON]
+  );
 
   const formatJson = useCallback(() => {
     const error = validateJson(inputJson);
@@ -234,7 +244,7 @@ const JsonFormatterContent: React.FC = () => {
       });
       setIsValid(false);
     }
-  }, [inputJson, validateJson, tabSpacing]);
+  }, [inputJson, validateJson, tabSpacing, UI_TEXT.ERROR_FORMAT_FAILED]);
 
   const minifyJson = useCallback(() => {
     const error = validateJson(inputJson);
@@ -257,7 +267,7 @@ const JsonFormatterContent: React.FC = () => {
       });
       setIsValid(false);
     }
-  }, [inputJson, validateJson]);
+  }, [inputJson, validateJson, UI_TEXT.ERROR_MINIFY_FAILED]);
 
   const validateOnly = useCallback(() => {
     const error = validateJson(inputJson);
@@ -270,7 +280,7 @@ const JsonFormatterContent: React.FC = () => {
       setIsValid(true);
       setOutputJson(UI_TEXT.VALID_JSON);
     }
-  }, [inputJson, validateJson]);
+  }, [inputJson, validateJson, UI_TEXT.VALID_JSON]);
 
   const clearAll = useCallback(() => {
     setInputJson('');
@@ -279,32 +289,35 @@ const JsonFormatterContent: React.FC = () => {
     setIsValid(true);
   }, []);
 
-  const copyToClipboard = useCallback(async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), CONFIG.TOAST_DURATION); // Hide toast after 2 seconds
-    } catch {
-      // Fallback to older method if clipboard API fails
+  const copyToClipboard = useCallback(
+    async (text: string) => {
       try {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.execCommand('copy');
-        textArea.remove();
+        await navigator.clipboard.writeText(text);
         setShowToast(true);
-        setTimeout(() => setShowToast(false), CONFIG.TOAST_DURATION);
+        setTimeout(() => setShowToast(false), CONFIG.TOAST_DURATION); // Hide toast after 2 seconds
       } catch {
-        // Silent fail - user will notice copy didn't work
-        // In production, this could be logged to an error service
+        // Fallback to older method if clipboard API fails
+        try {
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          textArea.style.top = '-999999px';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          textArea.remove();
+          setShowToast(true);
+          setTimeout(() => setShowToast(false), CONFIG.TOAST_DURATION);
+        } catch {
+          // Silent fail - user will notice copy didn't work
+          // In production, this could be logged to an error service
+        }
       }
-    }
-  }, []);
+    },
+    [CONFIG.TOAST_DURATION]
+  );
 
   const handleInputChange = useCallback(
     (value: string | undefined) => {
@@ -341,6 +354,14 @@ const JsonFormatterContent: React.FC = () => {
     }
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'nl' : 'en');
+  };
+
+  const getLanguageIcon = () => {
+    return language === 'en' ? <USFlagIcon /> : <DutchFlagIcon />;
+  };
+
   return (
     <Container>
       <Header>
@@ -352,12 +373,15 @@ const JsonFormatterContent: React.FC = () => {
         <HeaderToolbar>
           <Button variant="primary" onClick={formatJson} disabled={!inputJson.trim()} title={UI_TEXT.FORMAT_TOOLTIP}>
             <FormatIcon />
+            <span>{UI_TEXT.FORMAT_LABEL}</span>
           </Button>
           <Button onClick={minifyJson} disabled={!inputJson.trim()} title={UI_TEXT.MINIFY_TOOLTIP}>
             <MinifyIcon />
+            <span>{UI_TEXT.MINIFY_LABEL}</span>
           </Button>
           <Button onClick={validateOnly} disabled={!inputJson.trim()} title={UI_TEXT.VALIDATE_TOOLTIP}>
             <ValidateIcon />
+            <span>{UI_TEXT.VALIDATE_LABEL}</span>
           </Button>
           <SpacingLabel title={UI_TEXT.SPACING_TOOLTIP}>
             <SpacingIcon />
@@ -377,6 +401,9 @@ const JsonFormatterContent: React.FC = () => {
             <ClearIcon />
           </Button>
         </HeaderToolbar>
+        <LanguageButton onClick={toggleLanguage} title={`${UI_TEXT.LANGUAGE_TOOLTIP_PREFIX}${language.toUpperCase()}`}>
+          {getLanguageIcon()}
+        </LanguageButton>
         <ThemeButton onClick={toggleTheme} title={`${UI_TEXT.THEME_TOOLTIP_PREFIX}${getThemeLabel()}`}>
           {getThemeIcon()}
         </ThemeButton>
@@ -481,7 +508,9 @@ const JsonFormatterContent: React.FC = () => {
 };
 
 export const JsonFormatter: React.FC = () => (
-  <AppThemeProvider>
-    <JsonFormatterContent />
-  </AppThemeProvider>
+  <LanguageProvider>
+    <AppThemeProvider>
+      <JsonFormatterContent />
+    </AppThemeProvider>
+  </LanguageProvider>
 );

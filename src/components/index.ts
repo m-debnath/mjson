@@ -1,6 +1,14 @@
 export { Footer } from './Footer';
 export { Toast, MobileWarningToast } from './Toasts';
-export { ThemeButton, Button, SpacingLabel, SpacingDropdown, CopyButton, FormatButton } from './Buttons';
+export {
+  ThemeButton,
+  LanguageButton,
+  Button,
+  SpacingLabel,
+  SpacingDropdown,
+  CopyButton,
+  FormatButton,
+} from './Buttons';
 export {
   CopyIcon,
   CheckIcon,
@@ -10,8 +18,11 @@ export {
   MonitorIcon,
   MinifyIcon,
   ValidateIcon,
-  CopyOutputIcon,
   ClearIcon,
   SpacingIcon,
   WarningIcon,
+  USFlagIcon,
+  DutchFlagIcon,
 } from './Icons';
+export { LanguageProvider, useLanguage } from './language';
+export type { Language } from './language';

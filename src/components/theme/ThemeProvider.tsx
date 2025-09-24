@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { STORAGE_KEYS } from '../../assets';
+import { STORAGE_KEYS } from '../language/constants-en';
 import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components';
-import { ThemeContext } from './themeContext';
+import { ThemeContext } from './ThemeContext';
 import { lightTheme, darkTheme } from './themes';
 import type { ThemeMode, AppTheme } from './themes';
 

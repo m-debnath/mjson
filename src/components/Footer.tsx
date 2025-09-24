@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { UI_TEXT, ASSETS } from '../assets/constants';
+import { useLanguage } from './language';
 
 const StyledFooter = styled.footer`
   margin-top: auto;
@@ -21,17 +21,22 @@ const FooterLink = styled.a`
   }
 `;
 
-export const Footer: React.FC = () => (
-  <StyledFooter>
-    <p>{UI_TEXT.FOOTER_COOKIES}</p>
-    <p>
-      {UI_TEXT.FOOTER_COPYRIGHT}
-      <FooterLink href={ASSETS.COMPANY_URL} target="_blank" rel="noopener noreferrer">
-        {UI_TEXT.FOOTER_COMPANY}
-      </FooterLink>
-      {UI_TEXT.FOOTER_MADE_BY}
-    </p>
-  </StyledFooter>
-);
+export const Footer: React.FC = () => {
+  const { constants } = useLanguage();
+  const { UI_TEXT, ASSETS } = constants;
+
+  return (
+    <StyledFooter>
+      <p>{UI_TEXT.FOOTER_COOKIES}</p>
+      <p>
+        {UI_TEXT.FOOTER_COPYRIGHT}
+        <FooterLink href={ASSETS.COMPANY_URL} target="_blank" rel="noopener noreferrer">
+          {UI_TEXT.FOOTER_COMPANY}
+        </FooterLink>
+        {UI_TEXT.FOOTER_MADE_BY}
+      </p>
+    </StyledFooter>
+  );
+};
 
 export default Footer;

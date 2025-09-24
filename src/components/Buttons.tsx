@@ -27,11 +27,39 @@ export const ThemeButton = styled.button`
   }
 `;
 
+// Language toggle button
+export const LanguageButton = styled.button`
+  background-color: #6c757d;
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+
+  &:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+  }
+
+  svg {
+    width: 20px;
+    height: 13px;
+    border-radius: 2px;
+  }
+`;
+
 // Generic toolbar button with variants
 export const Button = styled.button.withConfig({
   shouldForwardProp: prop => prop !== 'variant',
 })<{ variant?: 'primary' | 'secondary' | 'danger' }>`
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -40,6 +68,7 @@ export const Button = styled.button.withConfig({
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   min-width: 44px;
   min-height: 44px;
 
@@ -171,6 +200,7 @@ export const FormatButton = styled.button`
 
 export default {
   ThemeButton,
+  LanguageButton,
   Button,
   SpacingLabel,
   SpacingDropdown,

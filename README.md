@@ -1,26 +1,58 @@
-# JSON Formatter & Validator
+# JSON Formatter & Validator by Mukul - HobbyCodes.com
 
-A self-hosted JSON formatter and validator built with React, designed for deployment with Docker and Traefik reverse proxy.
+A professional, self-hosted JSON formatter and validator web application built with React TypeScript, featuring comprehensive theming, multilingual support, Monaco Editor integration, and secure Docker deployment.
 
-## Features
+## ✨ Features
 
-- **JSON Formatting**: Pretty-print JSON with proper indentation
-- **JSON Minification**: Compress JSON by removing whitespace
-- **Real-time Validation**: Live validation as you type
-- **Syntax Highlighting**: Monaco Editor with JSON syntax highlighting
-- **Error Detection**: Line-by-line error reporting
-- **Copy to Clipboard**: Easy copying of formatted output
+### 🔧 Core JSON Processing
+
+- **JSON Formatting**: Pretty-print JSON with customizable indentation (2 or 4 spaces)
+- **JSON Minification**: Compress JSON by removing unnecessary whitespace
+- **Real-time Validation**: Live JSON syntax validation with detailed error reporting
+- **Syntax Highlighting**: Professional Monaco Editor (VS Code editor) with JSON syntax highlighting
+- **Error Detection**: Precise line-by-line error reporting with position information
+- **Copy to Clipboard**: One-click copying with success toast notifications
+
+### 🎨 User Interface & Experience
+
+- **Professional Design**: Clean, modern interface with HobbyCodes branding
+- **Theme System**: Complete light/dark/system theme switching with smooth transitions
+- **Multilingual Support**: Full internationalization with English and Dutch languages
+- **Flag-Based Language Selection**: Intuitive US and Dutch flag icons for language switching
+- **Responsive Layout**: Dual-pane editor layout optimized for desktop and tablet devices
+- **Mobile Device Warning**: Toast notification advising desktop use for optimal experience
+- **Enhanced Button Design**: SVG icons with descriptive text labels for better accessibility
+
+### 🛠️ Editor Features
+
+- **Monaco Editor Integration**: Full-featured code editor with VS Code capabilities
+- **Automatic Theme Synchronization**: Editor themes dynamically sync with application theme
+- **Real-time Feedback**: Live validation status with visual indicators
+- **Individual Copy Buttons**: Separate copy functionality for input and output panels
+- **Configurable Spacing**: Dropdown selection for 2 or 4 space indentation
+- **Status Indicators**: Visual status bars showing validation state and line counts
+- **Professional Tooltips**: Multilingual tooltips for all interactive elements
+
+### 🌐 Internationalization
+
+- **Complete Language Support**: All UI text, tooltips, messages, and footer content translated
+- **Real-time Language Switching**: Instant language changes without page reload
+- **Language Persistence**: User language preference saved in localStorage
+- **Localized Content**: Different JSON samples and examples for each language
+- **GDPR Compliance**: Multilingual footer with essential cookies disclosure
 
 ## Quick Start
 
 ### Development
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Start development server:**
+
    ```bash
    npm run dev
    ```
@@ -43,9 +75,10 @@ open http://json-formatter.localhost
 #### Option 2: Production with external Traefik
 
 1. **Update domain in docker-compose.prod.yml:**
+
    ```yaml
-   - "traefik.http.routers.json-formatter.rule=Host(`your-domain.com`)"
-   - "traefik.http.routers.json-formatter-secure.rule=Host(`your-domain.com`)"
+   - 'traefik.http.routers.json-formatter.rule=Host(`your-domain.com`)'
+   - 'traefik.http.routers.json-formatter-secure.rule=Host(`your-domain.com`)'
    ```
 
 2. **Deploy:**
@@ -72,32 +105,136 @@ The application includes comprehensive Traefik labels for:
 - **Compression**: Gzip enabled for static assets
 - **Caching**: 1-year cache for static assets
 
-## Technology Stack
+## 🛡️ Security & Compliance
 
-- **Frontend**: React 18 + TypeScript
-- **Editor**: Monaco Editor (VS Code editor)
-- **Styling**: Styled Components
-- **Build Tool**: Vite
-- **Web Server**: Nginx (Alpine)
-- **Reverse Proxy**: Traefik v3
-- **Containerization**: Docker
+### Security Features
 
-## Security
+- **Comprehensive Security Headers**: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, XSS Protection
+- **Client-Side Processing**: No server-side data storage or processing for maximum privacy
+- **Docker Security**: Non-root containers, minimal base images, regular security updates
+- **Dependency Scanning**: Automated vulnerability scanning with npm audit and Dependabot
+- **Code Security Analysis**: ESLint security rules, CodeQL analysis, Trivy container scanning
+- **CI/CD Security**: GitHub Actions security workflows with SARIF reporting
 
-The application includes several security measures:
+### Authentication & Privacy
 
-- **Content Security Policy (CSP)**
-- **X-Frame-Options header**
-- **X-Content-Type-Options header**  
-- **XSS Protection**
-- **Referrer Policy**
-- **No data persistence** - JSON is processed client-side only
+- **Authentik OIDC Integration**: Secured behind Authentik OIDC provider for user authentication
+- **GDPR Compliance**: Privacy-compliant footer with clear cookie usage disclosure
+- **Essential Cookies Only**: Uses only authentication and functionality cookies, no tracking
+- **Privacy Transparency**: Clear disclosure of authentication and authorization cookie usage
 
-## Health Check
+## 🚀 Technology Stack
 
-The application includes a health endpoint at `/health` that returns a 200 status code when the application is running properly.
+### Frontend
+
+- **Framework**: React 18 + TypeScript with strict typing
+- **Editor**: Monaco Editor (full VS Code editor experience)
+- **Styling**: Styled Components with comprehensive theming system
+- **State Management**: React Context API with custom hooks
+- **Build Tool**: Vite with optimized production builds
+- **Internationalization**: Complete multilingual architecture (EN/NL)
+
+### Infrastructure
+
+- **Web Server**: Nginx (Alpine Linux) with security headers
+- **Reverse Proxy**: Traefik v3 with automatic SSL certificates
+- **Containerization**: Multi-stage Docker builds with security optimization
+- **Authentication**: Authentik OIDC provider integration
+- **CI/CD**: GitHub Actions with security workflows and dependency scanning
+
+## 📋 Project Architecture
+
+### Component Structure
+
+- **JsonFormatter**: Main application component with dual provider architecture
+- **Language System**: Modular internationalization with React Context (`src/components/language/`)
+- **Theme System**: Complete theming architecture with light/dark/system modes (`src/components/theme/`)
+- **Icon Library**: Custom SVG icon components for all interface elements (`src/components/Icons.tsx`)
+- **Styled Components**: Theme-aware component library with proper DOM prop filtering
+- **Toast System**: Success notifications and mobile device warnings
+
+### Development Standards
+
+- **TypeScript Strict Mode**: Full type safety with strict compiler settings
+- **ESLint Security Rules**: Comprehensive linting with security-focused rules
+- **Prettier Code Formatting**: Consistent code formatting across the project
+- **Modular Architecture**: Clean separation of concerns with barrel exports
+- **Context-Based State**: Theme and language management via React Context
+- **Accessibility First**: ARIA labels, keyboard navigation, and semantic HTML
+- **Security-First Development**: Security considerations in every development decision
+
+### Build & Deployment
+
+- **Multi-Stage Docker**: Optimized builds with separate build and production stages
+- **Nginx Configuration**: Production-ready web server with security headers and compression
+- **Traefik Integration**: Automatic SSL certificates and reverse proxy configuration
+- **Health Checks**: Docker health monitoring with `/health` endpoint
+- **Asset Optimization**: Gzip compression and long-term caching for static assets
+
+## 🔍 Development & Testing
+
+### Scripts Available
+
+```bash
+# Development
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+
+# Code Quality
+npm run lint         # ESLint security and code quality checks
+npm run format       # Format code with Prettier
+npm run format:check # Check code formatting
+
+# Security
+npm run audit        # Security audit of dependencies
+npm run security:check # Comprehensive security checks
+```
+
+### Security Workflows
+
+- **Automated Security Scanning**: Daily security audits via GitHub Actions
+- **Dependency Review**: Automated review of dependency changes in pull requests
+- **Docker Security Scanning**: Trivy vulnerability scanning of container images
+- **CodeQL Analysis**: Advanced security analysis for JavaScript/TypeScript
+- **SARIF Reporting**: Security findings integrated into GitHub Security tab
+
+## 🩺 Health Monitoring
+
+The application includes comprehensive health monitoring:
+
+### Health Endpoint
 
 ```bash
 curl http://localhost/health
 # Returns: healthy
 ```
+
+### Docker Health Checks
+
+- **Interval**: 30 seconds
+- **Timeout**: 10 seconds
+- **Retries**: 3 attempts
+- **Start Period**: 30 seconds grace period
+
+### Monitoring Integration
+
+- Compatible with monitoring systems like Prometheus, Grafana, or Uptime Kuma
+- Health status available for load balancer health checks
+- Container orchestration health integration (Docker Compose, Kubernetes)
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ by Mukul at [HobbyCodes.com](https://hobbycodes.com)
+- AI assistance provided in development process
+- Monaco Editor by Microsoft for the excellent code editing experience
+- React team for the fantastic framework
+- Community contributors for security feedback and improvements
+
+---
+
+**Note**: This application is designed for self-hosting and includes comprehensive security measures. For production deployment, ensure proper SSL certificates, authentication, and security configurations are in place.

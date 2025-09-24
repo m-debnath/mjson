@@ -17,6 +17,11 @@ export const UI_TEXT = {
   COPY_OUTPUT_TOOLTIP: 'Copy formatted output to clipboard',
   CLEAR_TOOLTIP: 'Clear both input and output editors',
 
+  // Button Labels
+  FORMAT_LABEL: 'Format',
+  MINIFY_LABEL: 'Minify',
+  VALIDATE_LABEL: 'Validate',
+
   // Editor Panel Button Tooltips
   FORMAT_PANEL_TOOLTIP: 'Format JSON with proper indentation',
   COPY_PANEL_TOOLTIP: 'Copy formatted output to clipboard',
@@ -26,6 +31,9 @@ export const UI_TEXT = {
   THEME_DARK: 'Dark',
   THEME_SYSTEM: 'System',
   THEME_TOOLTIP_PREFIX: 'Current theme: ',
+
+  // Language Labels and Tooltips
+  LANGUAGE_TOOLTIP_PREFIX: 'Language: ',
 
   // Spacing Options
   SPACING_2: '2 spaces',
@@ -44,7 +52,7 @@ export const UI_TEXT = {
 
   // Footer
   FOOTER_COOKIES:
-    '🍪 This website uses only essential cookies for authentication, authorization, and application functionality. No tracking or analytics cookies are used. Authentication is managed by our secure OIDC provider. By continuing to use this site, you consent to our minimal use of essential cookies.',
+    '🍪 This website uses only essential cookies for authentication, authorization, and application functionality. No tracking or analytics cookies are used. By continuing to use this site, you consent to our minimal use of essential cookies.',
   FOOTER_COPYRIGHT: '© 2025 ',
   FOOTER_COMPANY: 'HobbyCodes.com',
   FOOTER_MADE_BY: ' - Made with ❤️ by Mukul, AI also helped.',
