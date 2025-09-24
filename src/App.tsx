@@ -1,7 +1,7 @@
-import { JsonFormatter } from './components/JsonFormatter'
+import { JsonFormatter } from './components/JsonFormatter';
 
 function App() {
-  return <JsonFormatter />
+  return <JsonFormatter />;
 }
 
-export default App
+export default App;

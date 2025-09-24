@@ -9,9 +9,7 @@ A self-hosted JSON formatter and validator built with React, designed for deploy
 - **Real-time Validation**: Live validation as you type
 - **Syntax Highlighting**: Monaco Editor with JSON syntax highlighting
 - **Error Detection**: Line-by-line error reporting
-- **Sample Data**: Load sample JSON for testing
 - **Copy to Clipboard**: Easy copying of formatted output
-- **Responsive Design**: Works on desktop and mobile devices
 
 ## Quick Start
 
