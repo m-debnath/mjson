@@ -14,6 +14,7 @@ export const UI_TEXT = {
   MINIFY_TOOLTIP: 'Minify JSON by removing whitespace',
   VALIDATE_TOOLTIP: 'Validate JSON syntax',
   SPACING_TOOLTIP: 'Choose indentation spacing',
+  RESET_PANELS_TOOLTIP: 'Reset panel widths to 50/50 split',
   COPY_OUTPUT_TOOLTIP: 'Copy formatted output to clipboard',
   CLEAR_TOOLTIP: 'Clear both input and output editors',
 
@@ -21,6 +22,7 @@ export const UI_TEXT = {
   FORMAT_LABEL: 'Format',
   MINIFY_LABEL: 'Minify',
   VALIDATE_LABEL: 'Validate',
+  RESET_PANELS_LABEL: 'Reset',
 
   // Editor Panel Button Tooltips
   FORMAT_PANEL_TOOLTIP: 'Format JSON with proper indentation',

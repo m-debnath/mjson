@@ -14,6 +14,7 @@ export const UI_TEXT = {
   MINIFY_TOOLTIP: 'JSON minimaliseren door witruimte te verwijderen',
   VALIDATE_TOOLTIP: 'JSON-syntaxis valideren',
   SPACING_TOOLTIP: 'Kies inspringingafstand',
+  RESET_PANELS_TOOLTIP: 'Panelbreedte herstellen naar 50/50 verdeling',
   COPY_OUTPUT_TOOLTIP: 'Geformatteerde uitvoer naar klembord kopiëren',
   CLEAR_TOOLTIP: 'Beide editors leegmaken',
 
@@ -21,6 +22,7 @@ export const UI_TEXT = {
   FORMAT_LABEL: 'Formatteren',
   MINIFY_LABEL: 'Minimaliseren',
   VALIDATE_LABEL: 'Valideren',
+  RESET_PANELS_LABEL: 'Herstellen',
 
   // Editor Panel Button Tooltips
   FORMAT_PANEL_TOOLTIP: 'JSON formatteren met juiste inspringing',

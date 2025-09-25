@@ -25,6 +25,7 @@ import {
   WarningIcon,
   USFlagIcon,
   DutchFlagIcon,
+  ResetIcon,
   LanguageProvider,
   useLanguage,
 } from '.';
@@ -89,12 +90,13 @@ const Subtitle = styled.p`
 const EditorContainer = styled.div`
   display: flex;
   flex: 1;
-  gap: 1rem;
   padding: 1rem;
+  position: relative;
 `;
 
-const EditorWrapper = styled.div`
-  flex: 1;
+const EditorWrapper = styled.div.withConfig({
+  shouldForwardProp: prop => prop !== 'width',
+})<{ width?: string }>`
   display: flex;
   flex-direction: column;
   background-color: ${props => props.theme.surface};
@@ -103,6 +105,44 @@ const EditorWrapper = styled.div`
   overflow: hidden;
   min-height: 0; /* Allow flexbox to shrink */
   transition: background-color 0.3s ease;
+  width: ${props => props.width || '50%'};
+  min-width: 200px;
+`;
+
+const ResizeHandle = styled.div`
+  width: 8px;
+  cursor: col-resize;
+  background-color: transparent;
+  border-left: 1px solid ${props => props.theme.border};
+  border-right: 1px solid ${props => props.theme.border};
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${props => props.theme.primary}20;
+  }
+
+  &:active {
+    background-color: ${props => props.theme.primary}40;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background-color: ${props => props.theme.border};
+    border-radius: 1px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover::after {
+    opacity: 0.8;
+  }
 `;
 
 const EditorHeader = styled.div`
@@ -165,10 +205,50 @@ const JsonFormatterContent: React.FC = () => {
   const [showToast, setShowToast] = useState(false);
   const [showMobileWarning, setShowMobileWarning] = useState(false);
   const [tabSpacing, setTabSpacing] = useState<number>(CONFIG.DEFAULT_TAB_SPACING);
+  const [leftPanelWidth, setLeftPanelWidth] = useState(50); // Percentage
+  const [isResizing, setIsResizing] = useState(false);
   const inputEditorRef = useRef<unknown>(null);
   const outputEditorRef = useRef<unknown>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { themeMode, toggleTheme } = useTheme();
+
+  // Resize functionality
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing || !containerRef.current) return;
+
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const containerWidth = containerRect.width - 8; // Subtract handle width
+      const mouseX = e.clientX - containerRect.left;
+      const percentage = Math.min(Math.max((mouseX / containerWidth) * 100, 20), 80); // Limit between 20% and 80%
+
+      setLeftPanelWidth(percentage);
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [isResizing]);
 
   // Mobile device detection
   useEffect(() => {
@@ -289,6 +369,10 @@ const JsonFormatterContent: React.FC = () => {
     setIsValid(true);
   }, []);
 
+  const resetPanelWidths = useCallback(() => {
+    setLeftPanelWidth(50); // Reset to 50% width for both panels
+  }, []);
+
   const copyToClipboard = useCallback(
     async (text: string) => {
       try {
@@ -390,6 +474,9 @@ const JsonFormatterContent: React.FC = () => {
               <option value={4}>{UI_TEXT.SPACING_4}</option>
             </SpacingDropdown>
           </SpacingLabel>
+          <Button onClick={resetPanelWidths} title={UI_TEXT.RESET_PANELS_TOOLTIP}>
+            <ResetIcon />
+          </Button>
           <Button
             onClick={() => copyToClipboard(outputJson)}
             disabled={!outputJson}
@@ -409,8 +496,8 @@ const JsonFormatterContent: React.FC = () => {
         </ThemeButton>
       </Header>
 
-      <EditorContainer>
-        <EditorWrapper>
+      <EditorContainer ref={containerRef}>
+        <EditorWrapper width={`${leftPanelWidth}%`}>
           <EditorHeader>
             <span>{UI_TEXT.INPUT_HEADER}</span>
             <FormatButton onClick={formatJson} disabled={!inputJson.trim()} title={UI_TEXT.FORMAT_PANEL_TOOLTIP}>
@@ -451,7 +538,9 @@ const JsonFormatterContent: React.FC = () => {
           </StatusBar>
         </EditorWrapper>
 
-        <EditorWrapper>
+        <ResizeHandle onMouseDown={handleMouseDown} />
+
+        <EditorWrapper width={`${100 - leftPanelWidth}%`}>
           <EditorHeader>
             <span>{UI_TEXT.OUTPUT_HEADER}</span>
             <CopyButton
