@@ -25,6 +25,7 @@ import {
   WarningIcon,
   USFlagIcon,
   DutchFlagIcon,
+  SpanishFlagIcon,
   ResetIcon,
   LanguageProvider,
   useLanguage,
@@ -439,11 +440,21 @@ const JsonFormatterContent: React.FC = () => {
   };
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'nl' : 'en');
+    const nextLanguage = language === 'en' ? 'nl' : language === 'nl' ? 'es' : 'en';
+    setLanguage(nextLanguage);
   };
 
   const getLanguageIcon = () => {
-    return language === 'en' ? <USFlagIcon /> : <DutchFlagIcon />;
+    switch (language) {
+      case 'en':
+        return <USFlagIcon />;
+      case 'nl':
+        return <DutchFlagIcon />;
+      case 'es':
+        return <SpanishFlagIcon />;
+      default:
+        return <USFlagIcon />;
+    }
   };
 
   return (

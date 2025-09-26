@@ -1,10 +1,10 @@
 import { createContext } from 'react';
 import type { UI_TEXT as EN_TEXT, STORAGE_KEYS, CONFIG, ASSETS } from './constants-en';
 
-export type Language = 'en' | 'nl';
+export type Language = 'en' | 'nl' | 'es';
 
 interface LanguageConstants {
-  UI_TEXT: typeof EN_TEXT | typeof import('./constants-nl').UI_TEXT;
+  UI_TEXT: typeof EN_TEXT | typeof import('./constants-nl').UI_TEXT | typeof import('./constants-es').UI_TEXT;
   DEFAULT_JSON: string;
   STORAGE_KEYS: typeof STORAGE_KEYS;
   CONFIG: typeof CONFIG;

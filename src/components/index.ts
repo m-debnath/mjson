@@ -23,6 +23,7 @@ export {
   WarningIcon,
   USFlagIcon,
   DutchFlagIcon,
+  SpanishFlagIcon,
   ResetIcon,
 } from './Icons';
 export { LanguageProvider, useLanguage } from './language';
