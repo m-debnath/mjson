@@ -181,6 +181,12 @@ npm run dev          # Start development server
 npm run build        # Build for production
 npm run preview      # Preview production build
 
+# Testing
+npm run test         # Run tests in watch mode
+npm run test:run     # Run tests once and exit
+npm run test:ui      # Run tests with Vitest UI interface
+npm run test:coverage # Run tests with coverage report
+
 # Code Quality
 npm run lint         # ESLint security and code quality checks
 npm run format       # Format code with Prettier
@@ -233,7 +239,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - AI assistance provided in development process
 - Monaco Editor by Microsoft for the excellent code editing experience
 - React team for the fantastic framework
-- Community contributors for security feedback and improvements
 
 ---
 
