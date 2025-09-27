@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
     <StyledFooter>
       <p>{UI_TEXT.FOOTER_COOKIES}</p>
       <p>
-        {UI_TEXT.FOOTER_COPYRIGHT}
+        🌍 {UI_TEXT.FOOTER_LANGUAGES}: 🇺🇸 🇳🇱 🇸🇪 🇩🇪 🇫🇷 🇪🇸 🇵🇹 🇱🇻 🇹🇷 🇮🇳 🇧🇩 🇯🇵 🇰🇷 • {UI_TEXT.FOOTER_COPYRIGHT}
         <FooterLink href={ASSETS.COMPANY_URL} target="_blank" rel="noopener noreferrer">
           {UI_TEXT.FOOTER_COMPANY}
         </FooterLink>

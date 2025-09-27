@@ -9,9 +9,6 @@ import {
   SunIcon,
   MoonIcon,
   MonitorIcon,
-  USFlagIcon,
-  DutchFlagIcon,
-  SpanishFlagIcon,
   WarningIcon,
   ResetIcon,
   CheckIcon,
@@ -56,21 +53,6 @@ describe('Icon Components', () => {
 
   it('should render MonitorIcon', () => {
     const { container } = render(<MonitorIcon />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it('should render USFlagIcon', () => {
-    const { container } = render(<USFlagIcon />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it('should render DutchFlagIcon', () => {
-    const { container } = render(<DutchFlagIcon />);
-    expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it('should render SpanishFlagIcon', () => {
-    const { container } = render(<SpanishFlagIcon />);
     expect(container.firstChild).toBeInTheDocument();
   });
 

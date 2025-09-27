@@ -3,9 +3,9 @@ import { hobbycodes_logo } from '../../assets';
 // UI Text Constants - Spanish
 export const UI_TEXT = {
   // Header
-  TITLE: 'JSON Formatter & Validator',
-  SUBTITLE: 'Format, validate, and minify JSON data',
-  LOGO_ALT: 'HobbyCodes Logo',
+  TITLE: 'Formateador y Validador JSON',
+  SUBTITLE: 'Formatear, validar y minificar datos JSON',
+  LOGO_ALT: 'Logo de HobbyCodes',
 
   // Editor Headers
   INPUT_HEADER: 'JSON de Entrada',
@@ -57,6 +57,7 @@ export const UI_TEXT = {
   // Footer
   FOOTER_COOKIES:
     '🍪 Este sitio web utiliza únicamente cookies esenciales para funcionalidad de idioma y tema. No se utilizan cookies de seguimiento o análisis. Al continuar usando este sitio, acepta nuestro uso mínimo de cookies esenciales.',
+  FOOTER_LANGUAGES: 'Apoyando 13 idiomas globalmente',
   FOOTER_COPYRIGHT: '© 2025 ',
   FOOTER_COMPANY: 'HobbyCodes.com',
   FOOTER_MADE_BY: ' - Hecho con ❤️ por Mukul, la IA también ayudó. Código fuente disponible en ',
@@ -67,11 +68,19 @@ export const UI_TEXT = {
   ERROR_MINIFY_FAILED: 'Falló la minificación de JSON',
 } as const;
 
-// Default JSON Sample
 export const DEFAULT_JSON = `{
-  "nombre": "Juan Pérez",
-  "edad": 30,
-  "ciudad": "Madrid"
+  "usuario": {
+    "nombre": "Carlos García",
+    "edad": 32,
+    "ciudad": "Barcelona",
+    "país": "España"
+  },
+  "configuración": {
+    "idioma": "es",
+    "tema": "oscuro",
+    "notificaciones": true
+  },
+  "datos": [1, 2, 3, 4, 5]
 }`;
 
 // Local Storage Keys

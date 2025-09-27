@@ -6,7 +6,7 @@ import {
   Toast,
   MobileWarningToast,
   ThemeButton,
-  LanguageButton,
+  LanguageDropdown,
   Button,
   SpacingLabel,
   SpacingDropdown,
@@ -23,13 +23,11 @@ import {
   ClearIcon,
   SpacingIcon,
   WarningIcon,
-  USFlagIcon,
-  DutchFlagIcon,
-  SpanishFlagIcon,
   ResetIcon,
   LanguageProvider,
   useLanguage,
 } from '.';
+import type { Language } from './language';
 import { AppThemeProvider, useTheme } from './theme';
 
 const Container = styled.div`
@@ -208,6 +206,7 @@ const JsonFormatterContent: React.FC = () => {
   const [tabSpacing, setTabSpacing] = useState<number>(CONFIG.DEFAULT_TAB_SPACING);
   const [leftPanelWidth, setLeftPanelWidth] = useState(50); // Percentage
   const [isResizing, setIsResizing] = useState(false);
+  const [hasUserModifiedInput, setHasUserModifiedInput] = useState(false);
   const inputEditorRef = useRef<unknown>(null);
   const outputEditorRef = useRef<unknown>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -274,6 +273,15 @@ const JsonFormatterContent: React.FC = () => {
       window.removeEventListener('resize', checkMobileDevice);
     };
   }, [CONFIG.MOBILE_BREAKPOINT, CONFIG.MOBILE_WARNING_DURATION, STORAGE_KEYS.MOBILE_WARNING]);
+
+  // Update input JSON when language changes
+  useEffect(() => {
+    // Only update if user hasn't modified the input or if it's empty
+    if (!hasUserModifiedInput || !inputJson.trim()) {
+      setInputJson(DEFAULT_JSON);
+      setHasUserModifiedInput(false);
+    }
+  }, [language, DEFAULT_JSON, hasUserModifiedInput, inputJson]);
 
   const validateJson = useCallback(
     (jsonString: string): ValidationError | null => {
@@ -368,6 +376,7 @@ const JsonFormatterContent: React.FC = () => {
     setOutputJson('');
     setValidationError(null);
     setIsValid(true);
+    setHasUserModifiedInput(false);
   }, []);
 
   const resetPanelWidths = useCallback(() => {
@@ -408,6 +417,7 @@ const JsonFormatterContent: React.FC = () => {
     (value: string | undefined) => {
       const newValue = value || '';
       setInputJson(newValue);
+      setHasUserModifiedInput(true);
 
       // Real-time validation
       const error = validateJson(newValue);
@@ -439,21 +449,41 @@ const JsonFormatterContent: React.FC = () => {
     }
   };
 
-  const toggleLanguage = () => {
-    const nextLanguage = language === 'en' ? 'nl' : language === 'nl' ? 'es' : 'en';
-    setLanguage(nextLanguage);
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLanguage = event.target.value as Language;
+    setLanguage(selectedLanguage);
   };
 
-  const getLanguageIcon = () => {
-    switch (language) {
+  const getLanguageDisplayName = (lang: Language): string => {
+    switch (lang) {
       case 'en':
-        return <USFlagIcon />;
+        return 'English';
       case 'nl':
-        return <DutchFlagIcon />;
+        return 'Nederlands';
       case 'es':
-        return <SpanishFlagIcon />;
+        return 'Español';
+      case 'pt':
+        return 'Português';
+      case 'de':
+        return 'Deutsch';
+      case 'mr':
+        return 'मराठी';
+      case 'bn':
+        return 'বাংলা';
+      case 'tr':
+        return 'Türkçe';
+      case 'lv':
+        return 'Latviski';
+      case 'ja':
+        return '日本語';
+      case 'ko':
+        return '한국어';
+      case 'sv':
+        return 'Svenska';
+      case 'fr':
+        return 'Français';
       default:
-        return <USFlagIcon />;
+        return 'English';
     }
   };
 
@@ -499,9 +529,30 @@ const JsonFormatterContent: React.FC = () => {
             <ClearIcon />
           </Button>
         </HeaderToolbar>
-        <LanguageButton onClick={toggleLanguage} title={`${UI_TEXT.LANGUAGE_TOOLTIP_PREFIX}${language.toUpperCase()}`}>
-          {getLanguageIcon()}
-        </LanguageButton>
+        <LanguageDropdown
+          value={language}
+          onChange={handleLanguageChange}
+          title={`${UI_TEXT.LANGUAGE_TOOLTIP_PREFIX}${getLanguageDisplayName(language)}`}
+        >
+          {/* English */}
+          <option value="en">🇺🇸</option>
+          {/* European Languages */}
+          <option value="nl">🇳🇱</option>
+          <option value="sv">🇸🇪</option>
+          <option value="de">🇩🇪</option>
+          <option value="fr">🇫🇷</option>
+          <option value="es">🇪🇸</option>
+          <option value="pt">🇵🇹</option>
+          <option value="lv">🇱🇻</option>
+          {/* Middle/Near East */}
+          <option value="tr">🇹🇷</option>
+          {/* South Asia */}
+          <option value="mr">🇮🇳</option>
+          <option value="bn">🇧🇩</option>
+          {/* Far East */}
+          <option value="ja">🇯🇵</option>
+          <option value="ko">🇰🇷</option>
+        </LanguageDropdown>
         <ThemeButton onClick={toggleTheme} title={`${UI_TEXT.THEME_TOOLTIP_PREFIX}${getThemeLabel()}`}>
           {getThemeIcon()}
         </ThemeButton>

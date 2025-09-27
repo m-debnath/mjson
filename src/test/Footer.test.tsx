@@ -58,4 +58,11 @@ describe('Footer Component', () => {
     expect(companyLink).toHaveAttribute('target', '_blank');
     expect(companyLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
+
+  it('should display multilingual support declaration with translated text', () => {
+    renderWithProviders(<Footer />);
+
+    expect(screen.getByText(/🌍 Supporting 13 languages globally:/)).toBeInTheDocument();
+    expect(screen.getByText(/🇺🇸 🇳🇱 🇸🇪 🇩🇪 🇫🇷 🇪🇸 🇵🇹 🇱🇻 🇹🇷 🇮🇳 🇧🇩 🇯🇵 🇰🇷/)).toBeInTheDocument();
+  });
 });

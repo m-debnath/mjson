@@ -2,10 +2,10 @@ export { Footer } from './Footer';
 export { Toast, MobileWarningToast } from './Toasts';
 export {
   ThemeButton,
-  LanguageButton,
   Button,
   SpacingLabel,
   SpacingDropdown,
+  LanguageDropdown,
   CopyButton,
   FormatButton,
 } from './Buttons';
@@ -21,9 +21,6 @@ export {
   ClearIcon,
   SpacingIcon,
   WarningIcon,
-  USFlagIcon,
-  DutchFlagIcon,
-  SpanishFlagIcon,
   ResetIcon,
 } from './Icons';
 export { LanguageProvider, useLanguage } from './language';

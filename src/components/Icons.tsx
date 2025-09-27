@@ -180,58 +180,6 @@ export const WarningIcon: React.FC = () => (
   </svg>
 );
 
-export const USFlagIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-us" viewBox="0 0 640 480">
-    <path fill="#bd3d44" d="M0 0h640v480H0" />
-    <path stroke="#fff" stroke-width="37" d="M0 55.3h640M0 129h640M0 203h640M0 277h640M0 351h640M0 425h640" />
-    <path fill="#192f5d" d="M0 0h364.8v258.5H0" />
-    <marker id="us-a" markerHeight="30" markerWidth="30">
-      <path fill="#fff" d="m14 0 9 27L0 10h28L5 27z" />
-    </marker>
-    <path
-      fill="none"
-      marker-mid="url(#us-a)"
-      d="m0 0 16 11h61 61 61 61 60L47 37h61 61 60 61L16 63h61 61 61 61 60L47 89h61 61 60 61L16 115h61 61 61 61 60L47 141h61 61 60 61L16 166h61 61 61 61 60L47 192h61 61 60 61L16 218h61 61 61 61 60z"
-    />
-  </svg>
-);
-
-export const DutchFlagIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-nl" viewBox="0 0 640 480">
-    <path fill="#ae1c28" d="M0 0h640v160H0z" />
-    <path fill="#fff" d="M0 160h640v160H0z" />
-    <path fill="#21468b" d="M0 320h640v160H0z" />
-  </svg>
-);
-
-export const SpanishFlagIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-es" viewBox="0 0 640 480">
-    <path fill="#aa151b" d="M0 0h640v480H0z" />
-    <path fill="#f1bf00" d="M0 120h640v240H0z" />
-    <g fill="#aa151b" stroke="#000" stroke-width=".7">
-      <path d="M161.2 230c0-35.8 28.8-64.6 64.6-64.6s64.6 28.8 64.6 64.6-28.8 64.6-64.6 64.6-64.6-28.8-64.6-64.6z" />
-      <path fill="none" stroke-width="1.1" d="M225.8 230c0-35.8 28.8-64.6 64.6-64.6" />
-      <path
-        fill="#f1bf00"
-        d="M225.8 213.4c11.9 0 21.5-9.7 21.5-21.5s-9.6-21.5-21.5-21.5-21.5 9.6-21.5 21.5 9.6 21.5 21.5 21.5z"
-      />
-      <path
-        fill="none"
-        stroke="#000"
-        stroke-width=".9"
-        d="M225.8 213.4c11.9 0 21.5-9.7 21.5-21.5s-9.6-21.5-21.5-21.5-21.5 9.6-21.5 21.5 9.6 21.5 21.5 21.5z"
-      />
-      <path fill="#aa151b" d="M235.3 191.9c0 5.3-4.2 9.5-9.5 9.5s-9.5-4.2-9.5-9.5 4.3-9.5 9.5-9.5 9.5 4.2 9.5 9.5z" />
-      <path
-        fill="none"
-        stroke="#000"
-        stroke-width=".6"
-        d="M235.3 191.9c0 5.3-4.2 9.5-9.5 9.5s-9.5-4.2-9.5-9.5 4.3-9.5 9.5-9.5 9.5 4.2 9.5 9.5z"
-      />
-    </g>
-  </svg>
-);
-
 export const ResetIcon: React.FC = () => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -261,8 +209,5 @@ export default {
   ClearIcon,
   SpacingIcon,
   WarningIcon,
-  USFlagIcon,
-  DutchFlagIcon,
-  SpanishFlagIcon,
   ResetIcon,
 };

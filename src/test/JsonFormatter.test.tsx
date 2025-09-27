@@ -14,16 +14,22 @@ vi.mock('@monaco-editor/react', () => ({
     // eslint-disable-next-line no-unused-vars
     onChange?: (_value: string) => void;
     // eslint-disable-next-line no-unused-vars
-    onMount?: (_editor: unknown) => void;
+    onMount?: (editor: unknown) => void;
   }) => {
-    return (
-      <textarea
-        data-testid="monaco-editor"
-        value={value || ''}
-        onChange={e => onChange?.(e.target.value)}
-        ref={ref => onMount?.(ref)}
-      />
-    );
+    // Create a mock editor instance for onMount
+    const mockEditor = {
+      getValue: () => value || '',
+      setValue: (newValue: string) => onChange?.(newValue),
+      // Add other editor methods as needed
+    };
+
+    // Call onMount with the mock editor if provided
+    if (onMount) {
+      // Use setTimeout to simulate the async nature of Monaco editor mounting
+      setTimeout(() => onMount(mockEditor), 0);
+    }
+
+    return <textarea data-testid="monaco-editor" value={value || ''} onChange={e => onChange?.(e.target.value)} />;
   },
 }));
 
@@ -133,5 +139,40 @@ describe('JsonFormatter Component', () => {
 
     // Mobile warning should appear
     expect(screen.getByText(/best experienced on desktop/i)).toBeInTheDocument();
+  });
+
+  it('should have language dropdown with all supported languages', () => {
+    renderWithProviders(<JsonFormatter />);
+
+    // Check for language dropdown - get all comboboxes and find the language one
+    const comboboxes = screen.getAllByRole('combobox');
+    const languageDropdown = comboboxes.find(combo => (combo as HTMLSelectElement).value === 'en');
+    expect(languageDropdown).toBeInTheDocument();
+    expect(languageDropdown).toHaveValue('en'); // Default to English
+
+    // Check that all language options are available by checking for specific option elements
+    // Geographic order: English, European, Middle/Near East, South Asia, Far East
+    const languageOptions = screen.getAllByRole('option');
+    const languageValues = languageOptions
+      .map(option => (option as HTMLOptionElement).value)
+      .filter(val => val.length === 2);
+
+    // Verify all 13 languages are present
+    expect(languageValues).toContain('en'); // 🇺🇸 English
+    expect(languageValues).toContain('nl'); // 🇳🇱 Nederlands
+    expect(languageValues).toContain('sv'); // 🇸🇪 Svenska
+    expect(languageValues).toContain('de'); // 🇩🇪 Deutsch
+    expect(languageValues).toContain('fr'); // 🇫🇷 Français
+    expect(languageValues).toContain('es'); // 🇪🇸 Español
+    expect(languageValues).toContain('pt'); // 🇵🇹 Português
+    expect(languageValues).toContain('lv'); // 🇱🇻 Latviski
+    expect(languageValues).toContain('tr'); // 🇹🇷 Türkçe
+    expect(languageValues).toContain('mr'); // 🇮🇳 मराठी
+    expect(languageValues).toContain('bn'); // 🇧🇩 বাংলা
+    expect(languageValues).toContain('ja'); // 🇯🇵 日本語
+    expect(languageValues).toContain('ko'); // 🇰🇷 한국어
+
+    // Verify we have exactly 13 language options (excluding spacing options)
+    expect(languageValues).toHaveLength(13);
   });
 });

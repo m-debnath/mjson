@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button, CopyButton, ThemeButton, LanguageButton } from '../components/Buttons';
+import { Button, CopyButton, ThemeButton } from '../components/Buttons';
 import { renderWithProviders } from './test-utils';
 
 describe('Button Components', () => {
@@ -72,23 +72,6 @@ describe('Button Components', () => {
       const user = userEvent.setup();
 
       renderWithProviders(<ThemeButton onClick={handleClick}>Theme</ThemeButton>);
-
-      await user.click(screen.getByRole('button'));
-      expect(handleClick).toHaveBeenCalledOnce();
-    });
-  });
-
-  describe('LanguageButton', () => {
-    it('should render language button with providers', () => {
-      renderWithProviders(<LanguageButton>Language</LanguageButton>);
-      expect(screen.getByRole('button')).toHaveTextContent('Language');
-    });
-
-    it('should handle click events', async () => {
-      const handleClick = vi.fn();
-      const user = userEvent.setup();
-
-      renderWithProviders(<LanguageButton onClick={handleClick}>Language</LanguageButton>);
 
       await user.click(screen.getByRole('button'));
       expect(handleClick).toHaveBeenCalledOnce();

@@ -57,6 +57,7 @@ export const UI_TEXT = {
   // Footer
   FOOTER_COOKIES:
     '🍪 This website uses only essential cookies for language and theme functionality. No tracking or analytics cookies are used. By continuing to use this site, you consent to our minimal use of essential cookies.',
+  FOOTER_LANGUAGES: 'Supporting 13 languages globally',
   FOOTER_COPYRIGHT: '© 2025 ',
   FOOTER_COMPANY: 'HobbyCodes.com',
   FOOTER_MADE_BY: ' - Made with ❤️ by Mukul, AI also helped. Source code is available on ',
@@ -69,9 +70,18 @@ export const UI_TEXT = {
 
 // Default JSON Sample
 export const DEFAULT_JSON = `{
-  "name": "John Doe",
-  "age": 30,
-  "city": "New York"
+  "user": {
+    "name": "John Smith",
+    "age": 30,
+    "city": "New York",
+    "country": "United States"
+  },
+  "settings": {
+    "language": "en",
+    "theme": "dark",
+    "notifications": true
+  },
+  "data": [1, 2, 3, 4, 5]
 }`;
 
 // Local Storage Keys

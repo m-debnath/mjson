@@ -4,7 +4,7 @@ import { hobbycodes_logo } from '../../assets';
 export const UI_TEXT = {
   // Header
   TITLE: 'JSON Formatter & Validator',
-  SUBTITLE: 'Format, validate, and minify JSON data',
+  SUBTITLE: 'JSON-gegevens formatteren, valideren en minimaliseren',
   LOGO_ALT: 'HobbyCodes Logo',
 
   // Editor Headers
@@ -57,6 +57,7 @@ export const UI_TEXT = {
   // Footer
   FOOTER_COOKIES:
     '🍪 Deze website gebruikt alleen essentiële cookies voor taal- en themafunctionaliteit. Er worden geen tracking- of analytische cookies gebruikt. Door deze site te blijven gebruiken, stemt u in met ons minimale gebruik van essentiële cookies.',
+  FOOTER_LANGUAGES: 'Ondersteunt wereldwijd 13 talen',
   FOOTER_COPYRIGHT: '© 2025 ',
   FOOTER_COMPANY: 'HobbyCodes.com',
   FOOTER_MADE_BY: ' - Gemaakt met ❤️ door Mukul, AI heeft ook geholpen. Broncode is beschikbaar op ',
@@ -67,11 +68,19 @@ export const UI_TEXT = {
   ERROR_MINIFY_FAILED: 'JSON minimaliseren mislukt',
 } as const;
 
-// Default JSON Sample
 export const DEFAULT_JSON = `{
-  "naam": "Jan Jansen",
-  "leeftijd": 30,
-  "stad": "Amsterdam"
+  "gebruiker": {
+    "naam": "Jan de Vries",
+    "leeftijd": 28,
+    "stad": "Amsterdam",
+    "land": "Nederland"
+  },
+  "instellingen": {
+    "taal": "nl",
+    "thema": "licht",
+    "meldingen": true
+  },
+  "gegevens": [1, 2, 3, 4, 5]
 }`;
 
 // Local Storage Keys

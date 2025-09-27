@@ -27,34 +27,6 @@ export const ThemeButton = styled.button`
   }
 `;
 
-// Language toggle button
-export const LanguageButton = styled.button`
-  background-color: #6c757d;
-  border: none;
-  color: white;
-  padding: 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  min-width: 44px;
-  min-height: 44px;
-
-  &:hover {
-    background-color: #5a6268;
-    transform: scale(1.05);
-  }
-
-  svg {
-    width: 20px;
-    height: 13px;
-    border-radius: 2px;
-  }
-`;
-
 // Generic toolbar button with variants
 export const Button = styled.button.withConfig({
   shouldForwardProp: prop => prop !== 'variant',
@@ -140,6 +112,40 @@ export const SpacingDropdown = styled.select`
   }
 `;
 
+export const LanguageDropdown = styled.select`
+  background-color: #6c757d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.2rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    background-color: #6c757d;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+`;
+
 // Copy button for panel header
 export const CopyButton = styled.button.withConfig({
   shouldForwardProp: prop => prop !== 'hasContent',
@@ -200,10 +206,10 @@ export const FormatButton = styled.button`
 
 export default {
   ThemeButton,
-  LanguageButton,
   Button,
   SpacingLabel,
   SpacingDropdown,
+  LanguageDropdown,
   CopyButton,
   FormatButton,
 };

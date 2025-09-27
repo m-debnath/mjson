@@ -17,8 +17,8 @@ A professional, self-hosted JSON formatter and validator web application built w
 
 - **Professional Design**: Clean, modern interface with HobbyCodes branding
 - **Theme System**: Complete light/dark/system theme switching with smooth transitions
-- **Multilingual Support**: Full internationalization with English and Dutch languages
-- **Flag-Based Language Selection**: Intuitive US and Dutch flag icons for language switching
+- **Multilingual Support**: Full internationalization with 13 languages (English, Dutch, Swedish, German, French, Spanish, Portuguese, Latvian, Turkish, Marathi, Bengali, Japanese, Korean)
+- **Flag-Based Language Selection**: Intuitive flag icons for easy language switching
 - **Responsive Layout**: Dual-pane editor layout optimized for desktop and tablet devices
 - **Mobile Device Warning**: Toast notification advising desktop use for optimal experience
 - **Enhanced Button Design**: SVG icons with descriptive text labels for better accessibility
@@ -35,10 +35,25 @@ A professional, self-hosted JSON formatter and validator web application built w
 
 ### 🌐 Internationalization
 
-- **Complete Language Support**: All UI text, tooltips, messages, and footer content translated
+- **Complete Language Support**: All UI text, tooltips, messages, and footer content translated across 13 languages
+- **Supported Languages**:
+  - 🇺🇸 English (en)
+  - 🇳🇱 Nederlands (nl)
+  - 🇸🇪 Svenska (sv)
+  - 🇩🇪 Deutsch (de)
+  - 🇫🇷 Français (fr)
+  - 🇪🇸 Español (es)
+  - 🇵🇹 Português (pt)
+  - 🇱🇻 Latviski (lv)
+  - 🇹🇷 Türkçe (tr)
+  - 🇮🇳 मराठी (mr)
+  - 🇧🇩 বাংলা (bn)
+  - 🇯🇵 日本語 (ja)
+  - 🇰🇷 한국어 (ko)
 - **Real-time Language Switching**: Instant language changes without page reload
 - **Language Persistence**: User language preference saved in localStorage
-- **Localized Content**: Different JSON samples and examples for each language
+- **Localized Content**: Different JSON samples and examples for each language with cultural adaptations
+- **Script Support**: Proper rendering for Latin, Devanagari, Bengali, and East Asian scripts (Japanese Kanji, Korean Hangul)
 - **GDPR Compliance**: Multilingual footer with essential cookies disclosure
 
 ## Quick Start
@@ -118,7 +133,6 @@ The application includes comprehensive Traefik labels for:
 
 ### Authentication & Privacy
 
-- **Authentik OIDC Integration**: Secured behind Authentik OIDC provider for user authentication
 - **GDPR Compliance**: Privacy-compliant footer with clear cookie usage disclosure
 - **Essential Cookies Only**: Uses only authentication and functionality cookies, no tracking
 - **Privacy Transparency**: Clear disclosure of authentication and authorization cookie usage
@@ -132,14 +146,13 @@ The application includes comprehensive Traefik labels for:
 - **Styling**: Styled Components with comprehensive theming system
 - **State Management**: React Context API with custom hooks
 - **Build Tool**: Vite with optimized production builds
-- **Internationalization**: Complete multilingual architecture (EN/NL)
+- **Internationalization**: - **Complete multilingual architecture supporting 13 languages (EN/NL/SV/DE/FR/ES/PT/LV/TR/MR/BN/JA/KO)**
 
 ### Infrastructure
 
 - **Web Server**: Nginx (Alpine Linux) with security headers
 - **Reverse Proxy**: Traefik v3 with automatic SSL certificates
 - **Containerization**: Multi-stage Docker builds with security optimization
-- **Authentication**: Authentik OIDC provider integration
 - **CI/CD**: GitHub Actions with security workflows and dependency scanning
 
 ## 📋 Project Architecture
