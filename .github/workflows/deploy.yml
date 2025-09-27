@@ -1,0 +1,38 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan -H ${{ vars.VPS_IP_ADDRESS }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          # Create deployment directory if it doesn't exist
+          ssh debnath.mukul@${{ vars.VPS_IP_ADDRESS }} "mkdir -p /home/debnath.mukul/mjson"
+
+          # Copy files to server (excluding unnecessary files)
+          rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.github' --exclude='coverage' --exclude='*.log' --exclude='.env*' . debnath.mukul@${{ vars.VPS_IP_ADDRESS }}:/home/debnath.mukul/mjson/
+
+          # Deploy on server
+          ssh debnath.mukul@${{ vars.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d --build"
+
+      - name: Verify deployment
+        run: |
+          ssh debnath.mukul@${{ vars.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml ps"

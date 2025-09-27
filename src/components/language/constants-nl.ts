@@ -1,3 +1,5 @@
+import { hobbycodes_logo } from '../../assets';
+
 // UI Text Constants - Dutch
 export const UI_TEXT = {
   // Header
@@ -88,6 +90,6 @@ export const CONFIG = {
 
 // Asset Paths
 export const ASSETS = {
-  LOGO: '/src/assets/hobbycodes_logo.svg',
+  LOGO: hobbycodes_logo,
   COMPANY_URL: 'https://hobbycodes.com',
 } as const;
