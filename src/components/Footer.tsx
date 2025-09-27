@@ -34,6 +34,9 @@ export const Footer: React.FC = () => {
           {UI_TEXT.FOOTER_COMPANY}
         </FooterLink>
         {UI_TEXT.FOOTER_MADE_BY}
+        <FooterLink href={ASSETS.SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer">
+          {ASSETS.SOURCE_CODE_URL}
+        </FooterLink>
       </p>
     </StyledFooter>
   );

@@ -56,10 +56,10 @@ export const UI_TEXT = {
 
   // Footer
   FOOTER_COOKIES:
-    '🍪 This website uses only essential cookies for authentication, authorization, and application functionality. No tracking or analytics cookies are used. By continuing to use this site, you consent to our minimal use of essential cookies.',
+    '🍪 This website uses only essential cookies for language and theme functionality. No tracking or analytics cookies are used. By continuing to use this site, you consent to our minimal use of essential cookies.',
   FOOTER_COPYRIGHT: '© 2025 ',
   FOOTER_COMPANY: 'HobbyCodes.com',
-  FOOTER_MADE_BY: ' - Made with ❤️ by Mukul, AI also helped.',
+  FOOTER_MADE_BY: ' - Made with ❤️ by Mukul, AI also helped. Source code is available on ',
 
   // Error Messages
   ERROR_INVALID_JSON: 'Invalid JSON',
@@ -92,4 +92,5 @@ export const CONFIG = {
 export const ASSETS = {
   LOGO: hobbycodes_logo,
   COMPANY_URL: 'https://hobbycodes.com',
+  SOURCE_CODE_URL: 'https://github.com/m-debnath/mjson',
 } as const;

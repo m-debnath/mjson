@@ -22,7 +22,7 @@ describe('Footer Component', () => {
     renderWithProviders(<Footer />);
 
     // Check for essential cookies disclosure
-    expect(screen.getByText(/essential cookies for authentication/)).toBeInTheDocument();
+    expect(screen.getByText(/essential cookies for language and theme functionality/)).toBeInTheDocument();
     expect(screen.getByText(/No tracking or analytics cookies/)).toBeInTheDocument();
   });
 
@@ -37,5 +37,25 @@ describe('Footer Component', () => {
     renderWithProviders(<Footer />);
 
     expect(screen.getByText(/AI also helped/)).toBeInTheDocument();
+  });
+
+  it('should render GitHub source code link', () => {
+    renderWithProviders(<Footer />);
+
+    const githubLink = screen.getByRole('link', { name: /https:\/\/github\.com\/m-debnath\/mjson/ });
+    expect(githubLink).toBeInTheDocument();
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/m-debnath/mjson');
+    expect(githubLink).toHaveAttribute('target', '_blank');
+    expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('should render HobbyCodes company link', () => {
+    renderWithProviders(<Footer />);
+
+    const companyLink = screen.getByRole('link', { name: /HobbyCodes\.com/ });
+    expect(companyLink).toBeInTheDocument();
+    expect(companyLink).toHaveAttribute('href', 'https://hobbycodes.com');
+    expect(companyLink).toHaveAttribute('target', '_blank');
+    expect(companyLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
 });
