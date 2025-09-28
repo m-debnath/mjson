@@ -17,6 +17,9 @@ coverage/
 *.lcov
 .nyc_output
 
+# Package lock - regenerated in CI/CD for reproducible builds
+package-lock.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
