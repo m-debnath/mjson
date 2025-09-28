@@ -41,6 +41,16 @@ coverage/
 # Docker
 .dockerignore
 
+# Git
+.git/
+.gitignore
+
+# GitHub
+.github/
+
 # Temporary files
 .tmp/
 temp/
+
+# Package lock (excluded from repo)
+package-lock.json

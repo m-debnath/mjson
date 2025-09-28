@@ -5,20 +5,18 @@ FROM node:20-alpine AS builder
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
+# Set user and workdir
+USER nextjs
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files (as nextjs user)
+COPY --chown=nextjs:nodejs package*.json ./
 
 # Install all dependencies (including devDependencies for build)
-RUN npm ci
+RUN npm install
 
-# Copy source code
-COPY . .
-
-# Change ownership to non-root user
-RUN chown -R nextjs:nodejs /app
-USER nextjs
+# Copy source code (as nextjs user)
+COPY --chown=nextjs:nodejs . .
 
 # Build the application
 RUN npm run build
