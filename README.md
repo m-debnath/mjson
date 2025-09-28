@@ -98,6 +98,7 @@ The screenshots demonstrate the application's multilingual capabilities, profess
 **Note about package-lock.json**: This project excludes `package-lock.json` from the repository to prevent npm optional dependency issues with platform-specific packages (like `@rollup/rollup-linux-x64-gnu`). The lock file is automatically generated during CI/CD runs using `npm ci` for reproducible builds.
 
 If you encounter dependency issues locally:
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
