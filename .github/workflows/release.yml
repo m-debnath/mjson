@@ -90,9 +90,15 @@ jobs:
             NEW_VERSION="$MAJOR.$MINOR.$PATCH"
             echo "New version: $NEW_VERSION"
             
-            echo "should_release=true" >> $GITHUB_OUTPUT
-            echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-            echo "version_type=$VERSION_TYPE" >> $GITHUB_OUTPUT
+            # Check if this version tag already exists
+            if git rev-parse "v$NEW_VERSION" >/dev/null 2>&1; then
+              echo "Tag v$NEW_VERSION already exists, skipping release"
+              echo "should_release=false" >> $GITHUB_OUTPUT
+            else
+              echo "should_release=true" >> $GITHUB_OUTPUT
+              echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+              echo "version_type=$VERSION_TYPE" >> $GITHUB_OUTPUT
+            fi
           else
             echo "should_release=false" >> $GITHUB_OUTPUT
             echo "No version bump needed for this commit"
@@ -225,8 +231,16 @@ jobs:
 
       - name: Create Git tag
         run: |
-          git tag -a "v${{ needs.check-version.outputs.new_version }}" -m "Release v${{ needs.check-version.outputs.new_version }}"
-          git push origin "v${{ needs.check-version.outputs.new_version }}"
+          TAG_NAME="v${{ needs.check-version.outputs.new_version }}"
+
+          # Check if tag already exists
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists, skipping tag creation"
+          else
+            echo "Creating new tag $TAG_NAME"
+            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+            git push origin "$TAG_NAME"
+          fi
 
       - name: Push version bump
         run: |
@@ -244,6 +258,9 @@ jobs:
           draft: false
           prerelease: false
           files: mjson-v${{ needs.check-version.outputs.new_version }}.tar.gz
+          fail_on_unmatched_files: false
+          generate_release_notes: false
+          make_latest: true
 
   deploy:
     needs: [check-version, release]
@@ -263,22 +280,22 @@ jobs:
 
       - name: Add server to known hosts
         run: |
-          ssh-keyscan -H ${{ vars.VPS_IP_ADDRESS }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.VPS_IP_ADDRESS }} >> ~/.ssh/known_hosts
 
       - name: Deploy to VPS
         run: |
           # Create deployment directory if it doesn't exist
-          ssh debnath.mukul@${{ vars.VPS_IP_ADDRESS }} "mkdir -p /home/debnath.mukul/mjson"
+          ssh debnath.mukul@${{ secrets.VPS_IP_ADDRESS }} "mkdir -p /home/debnath.mukul/mjson"
 
           # Copy files to server (excluding unnecessary files)
-          rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.github' --exclude='coverage' --exclude='*.log' --exclude='.env*' . debnath.mukul@${{ vars.VPS_IP_ADDRESS }}:/home/debnath.mukul/mjson/
+          rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.github' --exclude='coverage' --exclude='*.log' --exclude='.env*' . debnath.mukul@${{ secrets.VPS_IP_ADDRESS }}:/home/debnath.mukul/mjson/
 
           # Deploy on server
-          ssh debnath.mukul@${{ vars.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d --build"
+          ssh debnath.mukul@${{ secrets.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d --build"
 
       - name: Verify deployment
         run: |
-          ssh debnath.mukul@${{ vars.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml ps"
+          ssh debnath.mukul@${{ secrets.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml ps"
 
       - name: Post-deployment notification
         run: |

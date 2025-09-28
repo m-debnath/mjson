@@ -56,6 +56,24 @@ A professional, self-hosted JSON formatter and validator web application built w
 - **Script Support**: Proper rendering for Latin, Devanagari, Bengali, and East Asian scripts (Japanese Kanji, Korean Hangul)
 - **GDPR Compliance**: Multilingual footer with essential cookies disclosure
 
+## 📷 Screenshots
+
+Here are some screenshots showcasing the application in different languages and themes:
+
+### English Interface
+
+![JSON Formatter - English](src/assets/screenshots/json.hobbycodes.com-en.png)
+
+### Dutch Interface (Nederlands)
+
+![JSON Formatter - Dutch](src/assets/screenshots/json.hobbycodes.com-nl.png)
+
+### Bengali Interface (বাংলা)
+
+![JSON Formatter - Bengali](src/assets/screenshots/json.hobbycodes.com-bn.png)
+
+The screenshots demonstrate the application's multilingual capabilities, professional design, and consistent user experience across different languages and scripts.
+
 ## Quick Start
 
 ### Development
