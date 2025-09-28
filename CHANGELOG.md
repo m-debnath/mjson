@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2025-09-28
 
 ### Added
+
 - Initial release of JSON Formatter by Mukul - HobbyCodes.com
 - Professional JSON validation and formatting capabilities
 - Multi-language support (English, Nederlands, Español, Português, Deutsch, मराठी, বাংলা)
@@ -32,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Professional HobbyCodes branding and favicon
 
 ### Security
+
 - Comprehensive security headers implementation
 - Docker security with non-root containers
 - Dependency scanning with npm audit and Dependabot
@@ -39,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Build security with Terser minification
 - CI/CD security workflows with GitHub Actions
 
-### Infrastructure  
+### Infrastructure
+
 - GitHub Actions workflows for CI/CD
 - Docker containerization with Nginx
 - Production deployment automation
@@ -54,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This project uses automated releases based on commit message prefixes:
 
 - **BREAK:** - Major version increment (breaking changes)
-- **NEW:** - Minor version increment (new features) 
+- **NEW:** - Minor version increment (new features)
 - **OPT:** - Patch version increment (optimizations)
 - **FIX:** - Patch version increment (bug fixes)
 
@@ -76,12 +79,14 @@ npm run release -- --help
 ### Deployment
 
 All releases are automatically deployed to production via GitHub Actions when:
+
 1. A commit with a valid prefix is pushed to `main`
 2. Tests pass successfully
 3. Security checks pass
 4. A new release tag is created
 
 The deployment pipeline includes:
+
 - Automated testing and security validation
 - Docker image building and publishing
 - VPS deployment via SSH and Docker Compose

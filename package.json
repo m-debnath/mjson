@@ -20,8 +20,9 @@
     "prebuild": "npm run security:check",
     "release": "node scripts/release.js",
     "release:major": "npm run release -- major",
-    "release:minor": "npm run release -- minor", 
-    "release:patch": "npm run release -- patch"
+    "release:minor": "npm run release -- minor",
+    "release:patch": "npm run release -- patch",
+    "status": "node scripts/status.js"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",

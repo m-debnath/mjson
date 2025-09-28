@@ -249,7 +249,7 @@ This project uses automated semantic versioning based on commit message prefixes
 ### Commit Prefixes
 
 - **BREAK:** - Major version increment (breaking changes)
-- **NEW:** - Minor version increment (new features)  
+- **NEW:** - Minor version increment (new features)
 - **OPT:** - Patch version increment (optimizations)
 - **FIX:** - Patch version increment (bug fixes)
 
@@ -257,7 +257,7 @@ This project uses automated semantic versioning based on commit message prefixes
 
 ```bash
 git commit -m "NEW: Add multi-language support"
-git commit -m "FIX: Resolve JSON parsing edge case"  
+git commit -m "FIX: Resolve JSON parsing edge case"
 git commit -m "BREAK: Change API structure"
 git commit -m "OPT: Improve performance of validation"
 ```
@@ -268,7 +268,7 @@ git commit -m "OPT: Improve performance of validation"
 # Analyze latest commit and create appropriate release
 npm run release
 
-# Force specific version increments  
+# Force specific version increments
 npm run release:major   # Force major version bump
 npm run release:minor   # Force minor version bump
 npm run release:patch   # Force patch version bump

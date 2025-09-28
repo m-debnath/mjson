@@ -15,9 +15,9 @@ on:
         default: 'patch'
         type: choice
         options:
-        - major
-        - minor
-        - patch
+          - major
+          - minor
+          - patch
 
 jobs:
   check-version:
@@ -43,11 +43,11 @@ jobs:
           # Get the latest commit message
           COMMIT_MSG=$(git log -1 --pretty=%B)
           echo "Latest commit: $COMMIT_MSG"
-          
+
           # Get current version from package.json
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           echo "Current version: $CURRENT_VERSION"
-          
+
           # Determine version type based on commit message or manual input
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             VERSION_TYPE="${{ github.event.inputs.version_type }}"
@@ -62,9 +62,9 @@ jobs:
               VERSION_TYPE="none"
             fi
           fi
-          
+
           echo "Version type: $VERSION_TYPE"
-          
+
           if [ "$VERSION_TYPE" != "none" ]; then
             # Calculate new version
             IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
@@ -206,7 +206,7 @@ jobs:
           else
             COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s (%h)" --no-merges)
           fi
-          
+
           # Create changelog
           echo "## Changes in v${{ needs.check-version.outputs.new_version }}" > CHANGELOG.md
           echo "" >> CHANGELOG.md
@@ -215,7 +215,7 @@ jobs:
           else
             echo "- No significant changes" >> CHANGELOG.md
           fi
-          
+
           # Set output for release notes
           {
             echo 'changelog<<EOF'

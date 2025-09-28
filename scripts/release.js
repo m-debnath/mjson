@@ -2,11 +2,11 @@
 
 /**
  * Release Helper Script for JSON Formatter
- * 
+ *
  * This script helps create releases by analyzing commit messages
  * and determining the appropriate version bump based on prefixes:
  * - BREAK: Major version increment (breaking changes)
- * - NEW: Minor version increment (new features)  
+ * - NEW: Minor version increment (new features)
  * - OPT: Patch version increment (optimizations)
  * - FIX: Patch version increment (bug fixes)
  */
@@ -16,9 +16,9 @@ import { execSync } from 'child_process';
 
 const COMMIT_PREFIXES = {
   'BREAK:': 'major',
-  'NEW:': 'minor', 
+  'NEW:': 'minor',
   'OPT:': 'patch',
-  'FIX:': 'patch'
+  'FIX:': 'patch',
 };
 
 function getCurrentVersion() {
@@ -46,7 +46,7 @@ function determineVersionType(commitMessage) {
 
 function calculateNewVersion(currentVersion, versionType) {
   const [major, minor, patch] = currentVersion.split('.').map(Number);
-  
+
   switch (versionType) {
     case 'major':
       return `${major + 1}.0.0`;
@@ -76,7 +76,7 @@ function createGitTag(version) {
 
 function main() {
   const args = process.argv.slice(2);
-  
+
   if (args.includes('--help') || args.includes('-h')) {
     console.log(`
 JSON Formatter Release Helper
@@ -105,12 +105,12 @@ Examples:
 
   const currentVersion = getCurrentVersion();
   const commitMessage = getLatestCommitMessage();
-  
+
   console.log(`📦 Current version: ${currentVersion}`);
   console.log(`📝 Latest commit: ${commitMessage}`);
-  
+
   let versionType;
-  
+
   // Check for manual version type override
   if (args.includes('major') || args.includes('minor') || args.includes('patch')) {
     versionType = args.find(arg => ['major', 'minor', 'patch'].includes(arg));
@@ -118,38 +118,38 @@ Examples:
   } else {
     versionType = determineVersionType(commitMessage);
   }
-  
+
   if (!versionType && !args.includes('--force')) {
     console.log(`❌ No valid commit prefix found. Use one of: ${Object.keys(COMMIT_PREFIXES).join(', ')}`);
     console.log(`   Or use --force to create a patch release anyway`);
-    process.exit(1);
+    throw new Error('No valid commit prefix found');
   }
-  
+
   if (!versionType && args.includes('--force')) {
     versionType = 'patch';
     console.log(`🔨 Forcing patch release`);
   }
-  
+
   const newVersion = calculateNewVersion(currentVersion, versionType);
-  
+
   console.log(`🚀 Creating ${versionType} release: ${currentVersion} → ${newVersion}`);
-  
+
   // Update package.json
   updatePackageVersion(newVersion);
   console.log(`✅ Updated package.json to v${newVersion}`);
-  
+
   // Stage the package.json change
   try {
     execSync('git add package.json', { stdio: 'inherit' });
     execSync(`git commit -m "chore: bump version to v${newVersion}"`, { stdio: 'inherit' });
     console.log(`✅ Committed version bump`);
-  } catch (error) {
+  } catch {
     console.log(`ℹ️  Version already committed or no changes to commit`);
   }
-  
+
   // Create git tag
   createGitTag(newVersion);
-  
+
   console.log(`
 🎉 Release v${newVersion} created successfully!
 

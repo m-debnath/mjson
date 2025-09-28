@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    ignores: ["dist", "node_modules"]
+    ignores: ["dist", "node_modules", "coverage"]
   },
   {
     files: ["**/*.{ts,tsx}"],
@@ -80,6 +80,41 @@ export default [
       "no-new-func": "error",
       "no-script-url": "error",
       "no-console": "warn"
+    }
+  },
+  {
+    // Node.js scripts configuration
+    files: ["scripts/**/*.js"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node,
+        process: "readonly"
+      },
+      sourceType: "module"
+    },
+    plugins: {
+      security: security
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      ...security.configs.recommended.rules,
+
+      // Allow console in CLI scripts
+      "no-console": "off",
+      
+      // Node.js specific rules
+      "no-process-exit": "error",
+      
+      // General security rules (but relaxed for CLI tools)
+      "no-eval": "error",
+      "no-implied-eval": "error",
+      "no-new-func": "error",
+      "no-script-url": "error",
+      
+      // Security rules for Node.js scripts
+      "security/detect-child-process": "warn", // Allow but warn
+      "security/detect-non-literal-fs-filename": "warn" // Allow but warn for CLI tools
     }
   }
 ];
