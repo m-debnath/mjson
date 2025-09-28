@@ -388,7 +388,7 @@ const JsonFormatterContent: React.FC = () => {
       try {
         await navigator.clipboard.writeText(text);
         setShowToast(true);
-        setTimeout(() => setShowToast(false), CONFIG.TOAST_DURATION); // Hide toast after 2 seconds
+        setTimeout(() => setShowToast(false), CONFIG.TOAST_DURATION); // Hide toast after configured duration
       } catch {
         // Fallback to older method if clipboard API fails
         try {

@@ -98,7 +98,6 @@ The screenshots demonstrate the application's multilingual capabilities, profess
 #### Option 1: Standalone with included Traefik
 
 ```bash
-# Start the application with Traefik
 docker-compose up -d
 
 # Access the application
