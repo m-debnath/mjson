@@ -242,7 +242,64 @@ curl http://localhost/health
 - Health status available for load balancer health checks
 - Container orchestration health integration (Docker Compose, Kubernetes)
 
-## 📄 License
+## � Release Process
+
+This project uses automated semantic versioning based on commit message prefixes:
+
+### Commit Prefixes
+
+- **BREAK:** - Major version increment (breaking changes)
+- **NEW:** - Minor version increment (new features)  
+- **OPT:** - Patch version increment (optimizations)
+- **FIX:** - Patch version increment (bug fixes)
+
+### Examples
+
+```bash
+git commit -m "NEW: Add multi-language support"
+git commit -m "FIX: Resolve JSON parsing edge case"  
+git commit -m "BREAK: Change API structure"
+git commit -m "OPT: Improve performance of validation"
+```
+
+### Manual Release Commands
+
+```bash
+# Analyze latest commit and create appropriate release
+npm run release
+
+# Force specific version increments  
+npm run release:major   # Force major version bump
+npm run release:minor   # Force minor version bump
+npm run release:patch   # Force patch version bump
+
+# Get help and see all options
+npm run release -- --help
+```
+
+### Automated Release Pipeline
+
+When you push a commit with a valid prefix to the `main` branch:
+
+1. **Version Analysis**: GitHub Actions analyzes the commit message
+2. **Testing**: Comprehensive test suite runs with coverage reporting
+3. **Security Checks**: ESLint security rules and dependency audit
+4. **Version Bump**: Automatically updates package.json version
+5. **Git Tag**: Creates a new git tag (e.g., v0.1.0)
+6. **GitHub Release**: Creates a GitHub release with changelog
+7. **Build Artifacts**: Generates and uploads build artifacts
+8. **Deployment**: Automatically deploys to production VPS
+9. **Verification**: Verifies successful deployment
+
+### Release Features
+
+- **Automatic Changelog Generation**: Based on commits since last release
+- **Build Artifacts**: Compressed release packages for download
+- **Security Validation**: All releases pass security checks
+- **Zero-Downtime Deployment**: Docker Compose rolling updates
+- **Rollback Support**: Tagged releases allow easy rollback if needed
+
+## �📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
