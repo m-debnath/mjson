@@ -41,9 +41,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate package-lock.json
-        run: npm install --package-lock-only
-
       - name: Check for version bump
         id: version-check
         run: |
@@ -153,7 +150,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run tests with coverage
         run: npm run test:coverage
@@ -182,7 +179,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build application
         run: npm run build
