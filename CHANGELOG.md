@@ -5,7 +5,72 @@ All notable changes to the JSON Formatter project will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.6] - 2025-09-28
+
+### Fixed
+
+- Update Open Graph and Twitter image URLs to correct screenshots path
+- Fix social media preview images for proper Open Graph and Twitter Card display
+
+### Documentation
+
+- Add screenshots section to README showcasing multilingual interfaces
+- Include visual examples in English, Dutch (Nederlands), and Bengali (বাংলা)
+
+## [0.1.5] - 2025-09-28
+
+### Optimizations
+
+- Optimize Docker build by setting user before copying files and improving .dockerignore
+- Significant Docker build performance improvements (eliminated 48.8s chown operation)
+- Enhanced .dockerignore with .git/, .github/, and package-lock.json exclusions
+
+## [0.1.4] - 2025-09-28
+
+### Fixed
+
+- Move screenshot assets to public folder to ensure they are published in build
+- Screenshots now properly included in production builds and accessible via URLs
+
+## [0.1.3] - 2025-09-28
+
+### Fixed
+
+- Replace npm ci with npm install in all workflows to work without package-lock.json
+- Resolve CI/CD pipeline failures due to missing package-lock.json dependency
+- Fix npm optional dependency conflicts with platform-specific packages (@rollup/rollup-linux-x64-gnu)
+
+### Optimizations
+
+- Remove npm cache from workflows to fix package-lock.json dependency issues
+- Add comprehensive dependency management documentation section
+- Remove package-lock.json from repository to prevent npm optional dependency conflicts
+- Enhanced release workflow with better error handling and tag existence checking
+
+### Infrastructure
+
+- Improve CI/CD pipeline reliability with npm install strategy
+- Remove dependency on package-lock.json for reproducible builds
+- Enhanced workflow error handling and version conflict resolution
+
+### Documentation
+
+- Add dependency management section explaining package-lock.json exclusion strategy
+- Include troubleshooting steps for local development dependency issues
+
+## [0.1.2] - 2025-09-28
+
+### Optimizations
+
+- Refresh and optimize package-lock.json handling
+- Optimize release pipeline with improved version synchronization
+- Add automated release status checking functionality
+
+## [0.1.1] - 2025-09-28
+
+### Optimizations
+
+- Initial release pipeline optimizations and branding enhancements
 
 ## [0.1.0] - 2025-09-28
 
