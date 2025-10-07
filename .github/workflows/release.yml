@@ -314,17 +314,17 @@ jobs:
       - name: Deploy to VPS
         run: |
           # Create deployment directory if it doesn't exist
-          ssh debnath.mukul@${{ secrets.VPS_IP_ADDRESS }} "mkdir -p /home/debnath.mukul/mjson"
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP_ADDRESS }} "mkdir -p ${{ vars.DEPLOYMENT_DIRECTORY }}"
 
           # Copy files to server (excluding unnecessary files)
-          rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.github' --exclude='coverage' --exclude='*.log' --exclude='.env*' . debnath.mukul@${{ secrets.VPS_IP_ADDRESS }}:/home/debnath.mukul/mjson/
+          rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.github' --exclude='coverage' --exclude='*.log' --exclude='.env*' . ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP_ADDRESS }}:${{ vars.DEPLOYMENT_DIRECTORY }}/
 
           # Deploy on server
-          ssh debnath.mukul@${{ secrets.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d --build"
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP_ADDRESS }} "cd ${{ vars.DEPLOYMENT_DIRECTORY }} && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d --build"
 
       - name: Verify deployment
         run: |
-          ssh debnath.mukul@${{ secrets.VPS_IP_ADDRESS }} "cd /home/debnath.mukul/mjson && docker compose -f docker-compose.prod.yml ps"
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP_ADDRESS }} "cd ${{ vars.DEPLOYMENT_DIRECTORY }} && docker compose -f docker-compose.prod.yml ps"
 
       - name: Post-deployment notification
         run: |
