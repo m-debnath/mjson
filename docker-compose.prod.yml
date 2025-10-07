@@ -9,6 +9,7 @@ services:
       - traefik.http.routers.json-formatter.rule=Host(`json.hobbycodes.com`) || Host(`hobbycodes.com`)
       - traefik.http.routers.json-formatter.entrypoints=websecure
       - traefik.http.routers.json-formatter.tls.certresolver=letsencrypt
+      - traefik.http.routers.json-formatter.middlewares=gzip-compression@file
       - traefik.http.services.json-formatter.loadbalancer.server.port=80
     networks:
       - web
