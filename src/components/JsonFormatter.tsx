@@ -276,12 +276,11 @@ const JsonFormatterContent: React.FC = () => {
 
   // Update input JSON when language changes
   useEffect(() => {
-    // Only update if user hasn't modified the input or if it's empty
-    if (!hasUserModifiedInput || !inputJson.trim()) {
+    // Only update if user hasn't modified the input
+    if (!hasUserModifiedInput) {
       setInputJson(DEFAULT_JSON);
-      setHasUserModifiedInput(false);
     }
-  }, [language, DEFAULT_JSON, hasUserModifiedInput, inputJson]);
+  }, [language, DEFAULT_JSON, hasUserModifiedInput]);
 
   const validateJson = useCallback(
     (jsonString: string): ValidationError | null => {
