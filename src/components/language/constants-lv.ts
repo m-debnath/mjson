@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Latvian
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: 'Latviski',
+
   // Header
   TITLE: 'JSON Formatētājs un Validātors',
   SUBTITLE: 'Formatēt, validēt un saspiest JSON datus',

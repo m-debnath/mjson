@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Turkish
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: 'Türkçe',
+
   // Header
   TITLE: 'JSON Formatlayıcı ve Doğrulayıcı',
   SUBTITLE: 'JSON verilerini biçimlendir, doğrula ve küçült',

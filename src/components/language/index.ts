@@ -18,3 +18,53 @@ export { UI_TEXT as UI_TEXT_JA, DEFAULT_JSON as DEFAULT_JSON_JA } from './consta
 export { UI_TEXT as UI_TEXT_KO, DEFAULT_JSON as DEFAULT_JSON_KO } from './constants-ko';
 export { UI_TEXT as UI_TEXT_SV, DEFAULT_JSON as DEFAULT_JSON_SV } from './constants-sv';
 export { UI_TEXT as UI_TEXT_FR, DEFAULT_JSON as DEFAULT_JSON_FR } from './constants-fr';
+
+// Import types and constants for the helper function
+import type { Language } from './LanguageContext';
+import { UI_TEXT } from './constants-en';
+import { UI_TEXT as UI_TEXT_NL_IMPORT } from './constants-nl';
+import { UI_TEXT as UI_TEXT_ES_IMPORT } from './constants-es';
+import { UI_TEXT as UI_TEXT_PT_IMPORT } from './constants-pt';
+import { UI_TEXT as UI_TEXT_DE_IMPORT } from './constants-de';
+import { UI_TEXT as UI_TEXT_MR_IMPORT } from './constants-mr';
+import { UI_TEXT as UI_TEXT_BN_IMPORT } from './constants-bn';
+import { UI_TEXT as UI_TEXT_TR_IMPORT } from './constants-tr';
+import { UI_TEXT as UI_TEXT_LV_IMPORT } from './constants-lv';
+import { UI_TEXT as UI_TEXT_JA_IMPORT } from './constants-ja';
+import { UI_TEXT as UI_TEXT_KO_IMPORT } from './constants-ko';
+import { UI_TEXT as UI_TEXT_SV_IMPORT } from './constants-sv';
+import { UI_TEXT as UI_TEXT_FR_IMPORT } from './constants-fr';
+
+// Language name mapping function
+export const getLanguageName = (language: Language): string => {
+  switch (language) {
+    case 'en':
+      return UI_TEXT.LANGUAGE_NAME;
+    case 'nl':
+      return UI_TEXT_NL_IMPORT.LANGUAGE_NAME;
+    case 'es':
+      return UI_TEXT_ES_IMPORT.LANGUAGE_NAME;
+    case 'pt':
+      return UI_TEXT_PT_IMPORT.LANGUAGE_NAME;
+    case 'de':
+      return UI_TEXT_DE_IMPORT.LANGUAGE_NAME;
+    case 'mr':
+      return UI_TEXT_MR_IMPORT.LANGUAGE_NAME;
+    case 'bn':
+      return UI_TEXT_BN_IMPORT.LANGUAGE_NAME;
+    case 'tr':
+      return UI_TEXT_TR_IMPORT.LANGUAGE_NAME;
+    case 'lv':
+      return UI_TEXT_LV_IMPORT.LANGUAGE_NAME;
+    case 'ja':
+      return UI_TEXT_JA_IMPORT.LANGUAGE_NAME;
+    case 'ko':
+      return UI_TEXT_KO_IMPORT.LANGUAGE_NAME;
+    case 'sv':
+      return UI_TEXT_SV_IMPORT.LANGUAGE_NAME;
+    case 'fr':
+      return UI_TEXT_FR_IMPORT.LANGUAGE_NAME;
+    default:
+      return 'English';
+  }
+};

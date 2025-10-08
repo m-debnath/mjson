@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Marathi
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: 'मराठी',
+
   // Header
   TITLE: 'JSON फॉर्मेटर आणि व्हॅलिडेटर',
   SUBTITLE: 'JSON डेटा फॉर्मेट, व्हॅलिडेट आणि मिनिफाय करा',

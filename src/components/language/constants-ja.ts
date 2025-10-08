@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Japanese
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: '日本語',
+
   // Header
   TITLE: 'JSONフォーマッター＆バリデーター',
   SUBTITLE: 'JSONデータのフォーマット、検証、および圧縮',

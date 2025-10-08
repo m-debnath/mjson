@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Korean
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: '한국어',
+
   // Header
   TITLE: 'JSON 포매터 & 검증기',
   SUBTITLE: 'JSON 데이터 포맷, 검증 및 압축',

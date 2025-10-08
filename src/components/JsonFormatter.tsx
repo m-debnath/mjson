@@ -7,6 +7,7 @@ import {
   MobileWarningToast,
   ThemeButton,
   LanguageDropdown,
+  LanguageSelect,
   Button,
   SpacingLabel,
   SpacingDropdown,
@@ -26,6 +27,7 @@ import {
   ResetIcon,
   LanguageProvider,
   useLanguage,
+  getLanguageName,
 } from '.';
 import type { Language } from './language';
 import { AppThemeProvider, useTheme } from './theme';
@@ -453,39 +455,6 @@ const JsonFormatterContent: React.FC = () => {
     setLanguage(selectedLanguage);
   };
 
-  const getLanguageDisplayName = (lang: Language): string => {
-    switch (lang) {
-      case 'en':
-        return 'English';
-      case 'nl':
-        return 'Nederlands';
-      case 'es':
-        return 'Español';
-      case 'pt':
-        return 'Português';
-      case 'de':
-        return 'Deutsch';
-      case 'mr':
-        return 'मराठी';
-      case 'bn':
-        return 'বাংলা';
-      case 'tr':
-        return 'Türkçe';
-      case 'lv':
-        return 'Latviski';
-      case 'ja':
-        return '日本語';
-      case 'ko':
-        return '한국어';
-      case 'sv':
-        return 'Svenska';
-      case 'fr':
-        return 'Français';
-      default:
-        return 'English';
-    }
-  };
-
   return (
     <Container>
       <Header>
@@ -528,29 +497,27 @@ const JsonFormatterContent: React.FC = () => {
             <ClearIcon />
           </Button>
         </HeaderToolbar>
-        <LanguageDropdown
-          value={language}
-          onChange={handleLanguageChange}
-          title={`${UI_TEXT.LANGUAGE_TOOLTIP_PREFIX}${getLanguageDisplayName(language)}`}
-        >
-          {/* English */}
-          <option value="en">🇺🇸</option>
-          {/* European Languages */}
-          <option value="nl">🇳🇱</option>
-          <option value="sv">🇸🇪</option>
-          <option value="de">🇩🇪</option>
-          <option value="fr">🇫🇷</option>
-          <option value="es">🇪🇸</option>
-          <option value="pt">🇵🇹</option>
-          <option value="lv">🇱🇻</option>
-          {/* Middle/Near East */}
-          <option value="tr">🇹🇷</option>
-          {/* South Asia */}
-          <option value="mr">🇮🇳</option>
-          <option value="bn">🇧🇩</option>
-          {/* Far East */}
-          <option value="ja">🇯🇵</option>
-          <option value="ko">🇰🇷</option>
+        <LanguageDropdown title={`${UI_TEXT.LANGUAGE_TOOLTIP_PREFIX}${getLanguageName(language)}`}>
+          <LanguageSelect name="language-select" value={language} onChange={handleLanguageChange}>
+            {/* English */}
+            <option value="en">🇺🇸 {getLanguageName('en')}</option>
+            {/* European Languages */}
+            <option value="nl">🇳🇱 {getLanguageName('nl')}</option>
+            <option value="sv">🇸🇪 {getLanguageName('sv')}</option>
+            <option value="de">🇩🇪 {getLanguageName('de')}</option>
+            <option value="fr">🇫🇷 {getLanguageName('fr')}</option>
+            <option value="es">🇪🇸 {getLanguageName('es')}</option>
+            <option value="pt">🇵🇹 {getLanguageName('pt')}</option>
+            <option value="lv">🇱🇻 {getLanguageName('lv')}</option>
+            {/* Middle/Near East */}
+            <option value="tr">🇹🇷 {getLanguageName('tr')}</option>
+            {/* South Asia */}
+            <option value="mr">🇮🇳 {getLanguageName('mr')}</option>
+            <option value="bn">🇧🇩 {getLanguageName('bn')}</option>
+            {/* Far East */}
+            <option value="ja">🇯🇵 {getLanguageName('ja')}</option>
+            <option value="ko">🇰🇷 {getLanguageName('ko')}</option>
+          </LanguageSelect>
         </LanguageDropdown>
         <ThemeButton onClick={toggleTheme} title={`${UI_TEXT.THEME_TOOLTIP_PREFIX}${getThemeLabel()}`}>
           {getThemeIcon()}

@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Bengali
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: 'বাংলা',
+
   // Header
   TITLE: 'JSON ফরম্যাটার ও ভ্যালিডেটর',
   SUBTITLE: 'JSON ডেটা ফরম্যাট, ভ্যালিডেট ও মিনিফাই করুন',

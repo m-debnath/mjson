@@ -112,37 +112,44 @@ export const SpacingDropdown = styled.select`
   }
 `;
 
-export const LanguageDropdown = styled.select`
+export const LanguageDropdown = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   background-color: #6c757d;
-  border: none;
   color: white;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 1.2rem;
-  min-width: 44px;
-  min-height: 44px;
   padding: 0.75rem;
   border-radius: 8px;
-  text-align: center;
+  cursor: pointer;
   transition: all 0.2s ease;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
+  min-width: 44px;
+  min-height: 44px;
   &:hover {
     background-color: #5a6268;
     transform: scale(1.05);
   }
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+`;
 
+export const LanguageSelect = styled.select`
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.75rem;
+  min-width: 60px;
+  text-align: center;
   &:focus {
     outline: none;
   }
-
   option {
     background-color: #6c757d;
     color: white;
-    font-size: 1.2rem;
-    padding: 0.5rem;
   }
 `;
 
@@ -210,6 +217,7 @@ export default {
   SpacingLabel,
   SpacingDropdown,
   LanguageDropdown,
+  LanguageSelect,
   CopyButton,
   FormatButton,
 };

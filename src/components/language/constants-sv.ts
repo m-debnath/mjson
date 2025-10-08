@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Swedish
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: 'Svenska',
+
   // Header
   TITLE: 'JSON Formaterare & Validator',
   SUBTITLE: 'Formatera, validera och minifiera JSON-data',

@@ -6,6 +6,7 @@ export {
   SpacingLabel,
   SpacingDropdown,
   LanguageDropdown,
+  LanguageSelect,
   CopyButton,
   FormatButton,
 } from './Buttons';
@@ -23,5 +24,5 @@ export {
   WarningIcon,
   ResetIcon,
 } from './Icons';
-export { LanguageProvider, useLanguage } from './language';
+export { LanguageProvider, useLanguage, getLanguageName } from './language';
 export type { Language } from './language';

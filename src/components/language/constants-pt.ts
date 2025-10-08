@@ -2,6 +2,9 @@ import { hobbycodes_logo } from '../../assets';
 
 // UI Text Constants - Portuguese
 export const UI_TEXT = {
+  // Language Name (in native script)
+  LANGUAGE_NAME: 'Português',
+
   // Header
   TITLE: 'Formatador e Validador JSON',
   SUBTITLE: 'Formatar, validar e minificar dados JSON',
